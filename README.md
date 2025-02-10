@@ -8,8 +8,8 @@ A estrutura do projeto é a seguinte:
 
 ```
 ├── cypress/
-│   ├── e2e/
-│   │   └── web/
+│   ├── tests/
+│   │   └── e2e/
 │   │       └── login_web.cy.js    # Testes de login no frontend
 │   ├── api/
 │   │   └── swagger.cy.js          # Testes de API utilizando o Swagger
@@ -65,41 +65,6 @@ O Cypress possui um arquivo de configuração padrão `cypress.json`, onde você
 
 Os testes de API estão localizados na pasta `cypress/api/`, e o arquivo principal é o `swagger.cy.js`. Estes testes validam endpoints de API do servidor utilizando o **Swagger UI** como referência.
 
-#### **Exemplo de Teste de API:**
-```javascript
-describe('Testes de API - Buscar Carrinho por ID', () => {
-  it('Deve buscar o carrinho com o ID fornecido com sucesso', () => {
-    cy.request({
-      method: 'GET',
-      url: 'https://serverest.dev/carrinhos/qbMqntef4iTOwWfg', 
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.have.property('_id', 'qbMqntef4iTOwWfg');
-    });
-  });
-});
-```
-
-### **Testes de Frontend (Web)**
-
-Os testes de frontend estão localizados na pasta `cypress/e2e/web/`, e o arquivo principal é o `login_web.cy.js`. Estes testes validam interações no frontend, como o processo de login.
-
-#### **Exemplo de Teste de Login:**
-```javascript
-describe('Testes de Login - E2E', () => {
-  it('Deve realizar login com sucesso', () => {
-    cy.visit('/login'); // URL da aplicação
-    cy.get('[data-testid="email"]').type('testegeraisps@gmail.com');
-    cy.get('[data-testid="senha"]').type('T@123456!');
-    cy.get('[data-testid="entrar"]').click();
-    cy.url().should('include', '/home');
-    cy.get('.username').should('be.visible').and('contain', 'Bem-vindo');
-  });
-});
-```
-
----
-
 ## **Rodando os Testes**
 
 ### **Rodar Testes com Cypress em Modo Interativo**
@@ -126,12 +91,12 @@ npx cypress run
 
 - **Rodar Testes de Frontend (Web)**:
   ```bash
-  npx cypress run --spec "cypress/e2e/web/login_web.cy.js"
+  npx cypress run --spec "cypress/tests/e2e/login_web.cy.js"
   ```
 
 - **Rodar Testes de API**:
   ```bash
-  npx cypress run --spec "cypress/api/swagger.cy.js"
+  npx cypress run --spec "cypress/tests/api/swagger.cy.js"
   ```
 
 - **Rodar Testes Específicos**:
@@ -141,7 +106,7 @@ npx cypress run
 
 ## **Adicionando Novos Testes**
 
-Para adicionar novos testes, basta criar novos arquivos de teste dentro das pastas `cypress/e2e/` para frontend ou `cypress/api/` para testes de API. Lembre-se de seguir a convenção de nomeação e garantir que seus testes sejam claros e organizados.
+Para adicionar novos testes, basta criar novos arquivos de teste dentro das pastas `cypress/tests/e2e` para frontend ou `cypress/tests/api/` para testes de API. Lembre-se de seguir a convenção de nomeação e garantir que seus testes sejam claros e organizados.
 
 ---
 
